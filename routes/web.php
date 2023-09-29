@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Backend\DashbaordController;
+use App\Http\Controllers\Backend\DepartmentController;
+use App\Http\Controllers\Backend\DoctorController;
+use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',[DashbaordController::class,'index'])->name('dashboard');
+
+    // Department
+    Route::resource('departments',DepartmentController::class);
+
+
+    // Doctor
+    Route::resource('doctors',DoctorController::class);
 });
