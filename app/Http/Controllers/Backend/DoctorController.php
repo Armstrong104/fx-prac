@@ -34,23 +34,10 @@ class DoctorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'department_id' => 'required',
-            'speciality' => 'required',
             'image' => 'image',
 
         ]);
-        $image = $request->image;
-        if($image){
-            $imgUrl = imageUpload($image,'doctor-images');
-        }
-
-        Doctor::create([
-            'name' => $request->name,
-            'department_id' => $request->department_id,
-            'speciality' => $request->speciality,
-            'desc' => $request->desc,
-            'image' => $imgUrl
-        ]);
+        Doctor::saveDoctor($request);
 
         return back()->with('msg','Doctor Added Successfully!');
     }
@@ -78,24 +65,8 @@ class DoctorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $doctor = Doctor::find($id);
-        $image = $request->image;
-        if($image){
-            if(file_exists($doctor->image)){
-                unlink($doctor->image);
-            }
-            $imgUrl = imageUpload($image,'doctor-images');
-        }else{
-            $imgUrl = $doctor->image;
-        }
 
-        $doctor->update([
-            'name' => $request->name,
-            'department_id' => $request->department_id,
-            'speciality' => $request->speciality,
-            'desc' => $request->desc,
-            'image' => $imgUrl
-        ]);
+        Doctor::updateDoctor($request,$id);
 
         return to_route('doctors.index')->with('msg','Doctor Updated Successfully!');
     }
@@ -105,11 +76,7 @@ class DoctorController extends Controller
      */
     public function destroy(string $id)
     {
-        $doctor = Doctor::find($id);
-        if(file_exists($doctor->image)){
-            unlink($doctor->image);
-        }
-        $doctor->delete();
+        Doctor::destroyDoctor($id);
         return back()->with('msg','Doctor Deleted Successfully!');
     }
 }

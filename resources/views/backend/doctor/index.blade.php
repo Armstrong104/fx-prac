@@ -34,8 +34,8 @@
                             <td>{{$doctor->department->name}}</td>
                             <td>{{$doctor->speciality}}</td>
                             <td>{{$doctor->desc}}</td>
-                            <td>{{$doctor->status == 1 ? 'Active' : 'Inactive'}}</td>
                             <td><img src="{{asset($doctor->image)}}" alt="" height="50" width="50"></td>
+                            <td>{{$doctor->status == 1 ? 'Active' : 'Inactive'}}</td>
                             <td>
                                 <div class="d-flex gap-2">
                                     <a href="{{route('doctors.edit',$doctor->id)}}" class="btn btn-sm btn-primary">Edit</a>

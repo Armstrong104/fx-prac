@@ -46,7 +46,7 @@
                                 class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown02">
                             @foreach ($departments as $department)
-                                <li><a class="dropdown-item" href="department.html">{{ $department->name }}</a></li>
+                                <li><a class="dropdown-item" href="#">{{ $department->name }}</a></li>
                             @endforeach
 
                         </ul>
@@ -57,7 +57,7 @@
                             aria-haspopup="true" aria-expanded="false">Doctors <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             @foreach ($doctors as $doctor)
-                            <li><a class="dropdown-item" href="doctor.html">{{$doctor->name}}</a></li>
+                            <li><a class="dropdown-item" href="doctor.html"><img src="{{asset($doctor->image)}}" alt="" height="50" width="50">{{" \t"}}{{$doctor->name}}</a></li>
                             @endforeach
                         </ul>
                     </li>
